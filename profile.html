@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile - Smart Health Navigator{% endblock %}
+
+{% block page_title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-5 mb-4">
+        <div class="card fade-in">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-user-circle fa-5x text-primary"></i>
+                </div>
+                <h3>Sam</h3>
+                <p class="text-muted">Member since March 2025</p>
+                <div class="mt-3">
+                    <button class="btn btn-outline" id="edit-profile-btn">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4 animate-on-scroll" data-animation="slide-in-left">
+            <div class="card-body">
+                <h4 class="card-title">Account Information</h4>
+                <div class="mt-3">
+                    <p><strong>Email:</strong> sam@example.com</p>
+                    <p><strong>Phone:</strong> +91 1234567890</p>
+                    <p><strong>Gender:</strong> Male</p>
+                </div>
+                <button class="btn btn-outline mt-2" id="change-password-btn">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-7">
+        <div class="card animate-on-scroll" data-animation="fade-in">
+            <div class="card-body">
+                <h4 class="card-title">Recent Activity</h4>
+                
+                <div class="timeline mt-3">
+                    <div class="timeline-item d-flex">
+                        <div class="timeline-marker">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h5>Drug Interaction Check</h5>
+                            <p class="text-muted">You checked interaction between Ibuprofen and Aspirin</p>
+                            <small>Today, 10:23 AM</small>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item d-flex mt-3">
+                        <div class="timeline-marker">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h5>Symptom Check</h5>
+                            <p class="text-muted">You used the symptom checker for "headache and fever"</p>
+                            <small>Yesterday, 3:45 PM</small>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item d-flex mt-3">
+                        <div class="timeline-marker">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h5>Drug Interaction Check</h5>
+                            <p class="text-muted">You checked interaction between Lisinopril and Potassium</p>
+                            <small>March 18, 2025</small>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item d-flex mt-3">
+                        <div class="timeline-marker">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h5>Symptom Check</h5>
+                            <p class="text-muted">You used the symptom checker for "sore throat and cough"</p>
+                            <small>March 16, 2025</small>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item d-flex mt-3">
+                        <div class="timeline-marker">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h5>Profile Update</h5>
+                            <p class="text-muted">You updated your account information</p>
+                            <small>March 15, 2025</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline" id="view-all-activity-btn">
+                        <i class="fas fa-history"></i> View All Activity
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="edit-profile-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="profile-form">
+                    <div class="form-group mb-3">
+                        <label for="profile-name" class="form-label">Full Name</label>
+                        <input type="text" id="profile-name" class="form-control" value="John Doe">
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label for="profile-email" class="form-label">Email</label>
+                        <input type="email" id="profile-email" class="form-control" value="john.doe@example.com">
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label for="profile-phone" class="form-label">Phone</label>
+                        <input type="tel" id="profile-phone" class="form-control" value="(555) 123-4567">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="profile-dob" class="form-label">Date of Birth</label>
+                                <input type="date" id="profile-dob" class="form-control" value="1980-01-15">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="profile-gender" class="form-label">Gender</label>
+                                <select id="profile-gender" class="form-control">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Edit Profile Button
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    if (editProfileBtn) {
+        editProfileBtn.addEventListener('click', function() {
+            const editProfileModal = new bootstrap.Modal(document.getElementById('edit-profile-modal'));
+            editProfileModal.show();
+        });
+    }
+    
+    // Save Profile Button
+    const saveProfileBtn = document.getElementById('save-profile-btn');
+    if (saveProfileBtn) {
+        saveProfileBtn.addEventListener('click', function() {
+            // In a real application, you would send the form data to the server here
+            
+            // Show success message
+            showNotification('Profile updated successfully!', 'success');
+            
+            // Close modal
+            const editProfileModal = bootstrap.Modal.getInstance(document.getElementById('edit-profile-modal'));
+            editProfileModal.hide();
+        });
+    }
+    
+    // Change Password Button
+    const changePasswordBtn = document.getElementById('change-password-btn');
+    if (changePasswordBtn) {
+        changePasswordBtn.addEventListener('click', function() {
+            alert('Change password functionality would go here in a real application.');
+        });
+    }
+    
+    // View All Activity Button
+    const viewAllActivityBtn = document.getElementById('view-all-activity-btn');
+    if (viewAllActivityBtn) {
+        viewAllActivityBtn.addEventListener('click', function() {
+            alert('View all activity functionality would show a complete history in a real application.');
+        });
+    }
+
+});
+</script>
+{% endblock %}
+{% endblock %}

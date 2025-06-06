@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Smart Health Navigator - Dashboard{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-3 fade-in">
+            <div class="card-body">
+                <h2 class="card-title">Welcome to Smart Health Navigator</h2>
+                <p>Your personal health assistant for symptoms and medications.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card h-100 animate-on-scroll" data-animation="slide-in-left">
+            <div class="card-body feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <h3 class="feature-title">Symptom Checker</h3>
+                <p>Describe your symptoms and get AI-powered health guidance. Our symptom checker helps you understand what might be causing your symptoms.</p>
+                <a href="/symptom_checker" class="btn btn-primary mt-3">Check Symptoms</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-3">
+        <div class="card h-100 animate-on-scroll" data-animation="slide-in-right">
+            <div class="card-body feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <h3 class="feature-title">Drug Interaction Checker</h3>
+                <p>Check if your medications interact with each other. Our drug interaction tool helps you avoid potential medication conflicts.</p>
+                <a href="/drug_interaction" class="btn btn-primary mt-3">Check Interactions</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card animate-on-scroll" data-animation="fade-in">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <i class="fas fa-info-circle"></i>
+                    Health Tips
+                </h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card p-3">
+                            <h4><i class="fas fa-heart text-danger"></i> Heart Health</h4>
+                            <p>Regular exercise, a healthy diet, and stress management are key to maintaining heart health.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card p-3">
+                            <h4><i class="fas fa-brain text-primary"></i> Mental Wellness</h4>
+                            <p>Prioritize sleep, practice mindfulness, and maintain social connections for mental well-being.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card p-3">
+                            <h4><i class="fas fa-capsules text-warning"></i> Medication Safety</h4>
+                            <p>Always follow your doctor's instructions and check for drug interactions when taking multiple medications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card animate-on-scroll" data-animation="fade-in">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Important Notice
+                </h3>
+                <div class="alert alert-warning">
+                    <p><strong>Disclaimer:</strong> The information provided by Smart Health Navigator is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified healthcare provider with any questions you may have regarding a medical condition.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

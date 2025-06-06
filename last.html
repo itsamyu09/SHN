@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page - Smart Health Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            overflow: hidden;
+        }
+        
+        .container {
+            position: relative;
+            width: 370px;
+            height: 470px;
+        }
+        
+        .form-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+            pointer-events: auto; /* Ensure input fields are interactive */
+        }
+        
+        .login-box {
+            transform: translateX(0);
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .signup-box {
+            transform: translateX(100%);
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        .container.active .login-box {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        
+        .container.active .signup-box {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 14px;
+        }
+        
+        .password-container input {
+            margin: 0;
+        }
+        
+        input:focus {
+            border-color: #3a7bd5;
+            box-shadow: 0 0 8px rgba(58, 123, 213, 0.5);
+            outline: none;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3a7bd5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background: #2a6ac0;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(58, 123, 213, 0.4);
+        }
+        
+        .toggle-btn {
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            color: #3a7bd5;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.2s;
+        }
+        
+        .toggle-btn span {
+            text-decoration: underline;
+        }
+        
+        .toggle-btn:hover {
+            color: #2a6ac0;
+            transform: scale(1.05);
+        }
+        
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-box login-box">
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <div class="password-container">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <i class="password-toggle fas fa-eye-slash" id="loginPasswordToggle"></i>
+            </div>
+            <button id="loginButton">Login</button>
+            <p class="error-message" id="loginErrorMessage"></p>
+            <p class="toggle-btn" id="toggle-signup">Don't have an account? <span>Sign Up</span></p>
+        </div>
+        <div class="form-box signup-box">
+            <h2>Sign Up</h2>
+            <input type="text" id="signupUsername" placeholder="Username">
+            <input type="email" id="signupEmail" placeholder="Email">
+            <div class="password-container">
+                <input type="password" id="signupPassword" placeholder="Password">
+                <i class="password-toggle fas fa-eye-slash" id="signupPasswordToggle"></i>
+            </div>
+            <button id="signupButton">Sign Up</button>
+            <p class="error-message" id="signupErrorMessage"></p>
+            <p class="toggle-btn" id="toggle-login">Already have an account? <span>Login</span></p>
+        </div>
+    </div>
+    <script>
+        // Simulated "database" using an array of objects
+        let users = [];
+
+        // Toggle between Login and Sign Up forms
+        document.getElementById('toggle-signup').addEventListener('click', function() {
+            document.getElementById('container').classList.add('active');
+            document.getElementById('loginErrorMessage').textContent = ''; // Clear login error message
+        });
+
+        document.getElementById('toggle-login').addEventListener('click', function() {
+            document.getElementById('container').classList.remove('active');
+            document.getElementById('signupErrorMessage').textContent = ''; // Clear signup error message
+        });
+
+        // Password toggle functionality
+        document.getElementById('loginPasswordToggle').addEventListener('click', function() {
+            togglePasswordVisibility('loginPassword', 'loginPasswordToggle');
+        });
+        
+        document.getElementById('signupPasswordToggle').addEventListener('click', function() {
+            togglePasswordVisibility('signupPassword', 'signupPasswordToggle');
+        });
+        
+        function togglePasswordVisibility(inputId, toggleId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(toggleId);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Login functionality
+        document.getElementById('loginButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            // Clear previous error messages
+            document.getElementById('loginErrorMessage').textContent = '';
+
+            // Validate input fields
+            if (!username || !password) {
+                document.getElementById('loginErrorMessage').textContent = 'Please enter correct details!';
+                return;
+            }
+
+            // Check if the user exists in the "database"
+            const user = users.find(user => user.username === username && user.password === password);
+            if (user) {
+                // Redirect to the dashboard page after successful login
+                window.location.href = "/dashboard";
+            } else if (username === "admin" && password === "Admin123!") {
+                // Allow a default admin user for testing
+                window.location.href = "/dashboard";
+            } else {
+                document.getElementById('loginErrorMessage').textContent = 'Invalid username or password!';
+            }
+        });
+
+        // Sign Up functionality
+        document.getElementById('signupButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const username = document.getElementById('signupUsername').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+
+            // Clear previous error messages
+            document.getElementById('signupErrorMessage').textContent = '';
+
+            // Validate input fields
+            if (!username || !email || !password) {
+                document.getElementById('signupErrorMessage').textContent = 'Please enter correct details!';
+                return;
+            }
+
+            // Validate email format
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('signupErrorMessage').textContent = 'Please enter a valid email address!';
+                return;
+            }
+
+            // Validate password for special characters, uppercase letters, and numbers
+            const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
+            const uppercasePattern = /[A-Z]/;
+            const numberPattern = /[0-9]/;
+
+            if (!specialCharPattern.test(password) || !uppercasePattern.test(password) || !numberPattern.test(password)) {
+                document.getElementById('signupErrorMessage').textContent = 'Password must contain at least one uppercase letter, one special character, and one number!';
+                return;
+            }
+
+            // Check if the username already exists
+            const userExists = users.some(user => user.username === username);
+            if (userExists) {
+                document.getElementById('signupErrorMessage').textContent = 'Username already exists!';
+            } else {
+                // Add the new user to the "database"
+                users.push({ username, email, password });
+                alert('Sign up successful!');
+                document.getElementById('signupErrorMessage').textContent = ''; // Clear error message
+                document.getElementById('container').classList.remove('active'); // Switch to login form
+                
+                // Pre-fill login form with new username
+                document.getElementById('loginUsername').value = username;
+            }
+        });
+    </script>
+</body>
+</html>
